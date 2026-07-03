@@ -4,6 +4,12 @@ A dark-industrial markdown editor and viewer for the desktop. Single-file, PyQt6
 
 Split-pane editing with live preview, markdown syntax highlighting, a line-numbered gutter, synchronized scrolling, document structure navigation, and print/PDF output — wrapped in a navy/teal/amber industrial theme (with phosphor-terminal and light alternatives).
 
+
+<img width="1920" height="1040" alt="markdown_editor_pro" src="https://github.com/user-attachments/assets/d85db5b9-408d-47ae-ac61-fbdc315ef543" />
+
+
+---
+
 ## Features
 
 - **Live preview** — debounced re-render as you type (450 ms), with scroll position preserved
