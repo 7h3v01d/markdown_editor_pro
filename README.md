@@ -1,28 +1,63 @@
-# Markdown Editor Pro
+# Markdown Editor Pro & Markdown Viewer Pro
 
-A dark-industrial markdown editor and viewer for the desktop. Single-file, PyQt6, two dependencies, zero ceremony.
+A matched pair of dark-industrial markdown tools for the desktop. Single-file PyQt6 apps, two dependencies, zero ceremony.
 
-Split-pane editing with live preview, markdown syntax highlighting, a line-numbered gutter, synchronized scrolling, document structure navigation, and print/PDF output — wrapped in a navy/teal/amber industrial theme (with phosphor-terminal and light alternatives).
+- **Markdown_Editor_Pro.py** — split-pane editor with live preview, syntax highlighting, and synchronized scrolling
+- **Markdown_Viewer_Pro.py** — read-only reader with search, zoom, auto-refresh, and recent files
 
+Both share the same design language: a navy/teal/amber industrial theme (with phosphor-terminal and light alternatives), JetBrains Mono accents, and identical toolbar, panel, and status-bar layouts.
 
-<img width="1920" height="1040" alt="markdown_editor_pro" src="https://github.com/user-attachments/assets/d85db5b9-408d-47ae-ac61-fbdc315ef543" />
-
-
----
-
-## Features
+## Markdown Editor Pro
 
 - **Live preview** — debounced re-render as you type (450 ms), with scroll position preserved
 - **Markdown syntax highlighting** — headings, bold/italic, inline and fenced code, links, blockquotes, list markers, horizontal rules
 - **Line-number gutter** — with current-line indicator and current-line background highlight
 - **Sync scroll** — proportional two-way scroll linking between editor and preview, toggleable from the toolbar
-- **Document structure panel** — click any heading to jump to it (editor line in editor mode, rendered section in viewer mode)
-- **Print / PDF** — prints the rendered preview via the system print dialog; always uses light styling so dark themes don't print solid page backgrounds. Use "Microsoft Print to PDF" for free PDF export
-- **Three themes** — `obsidian` (navy/teal/amber, default), `phosphor` (green terminal), `daylight` (light)
-- **Editor and viewer modes** — viewer mode is read-only with markdown rendered in safe mode
-- **Live stats** — cursor line:column, word count, and character count in the status bar
+- **Document structure panel** — click any heading to jump to that line
+- **Print / PDF** — prints the rendered preview via the system print dialog
+- **Editor and viewer modes** — `--mode viewer` gives a read-only window with markdown rendered in safe mode
+- **Live stats** — cursor line:column, word count, and character count
 - **Unsaved-changes guard** — on open, reload, and close
-- **Self-installing dependencies** — prompts to `pip install` anything missing on first run
+
+```
+python Markdown_Editor_Pro.py [file] [--mode editor|viewer] [--theme obsidian|phosphor|daylight]
+```
+
+| Shortcut | Action |
+|---|---|
+| `Ctrl+O` | Open file |
+| `Ctrl+S` / `Ctrl+Shift+S` | Save / Save As |
+| `Ctrl+R` | Reload file from disk |
+| `Ctrl+P` | Print preview pane |
+| `F5` | Refresh preview |
+| `Ctrl+=` / `Ctrl+-` | Editor font size up / down |
+
+## Markdown Viewer Pro
+
+- **Reader-focused** — no editing surface, just the rendered document with a structure panel
+- **Find** — live match count with highlighting; `Enter` cycles matches
+- **Zoom** — 60–180% document scaling from the toolbar or keyboard
+- **Auto-refresh** — watches the open file and re-renders when it changes on disk (2 s poll), with a status-bar flash
+- **Recent files** — last 10 files persisted to `~/.mdviewer_recent.json`, available from the `RECENT` dropdown
+- **Drag & drop** — drop a markdown file anywhere in the window to open it
+- **Print / PDF** — same clean light-styled print pipeline as the editor
+- **Extended markdown** — footnotes, strikethrough, task lists (rendered as ☑/☐), and smart typography
+- **Fullscreen reading** — `F11`
+
+```
+python Markdown_Viewer_Pro.py [file] [--theme obsidian|phosphor|daylight]
+```
+
+| Shortcut | Action |
+|---|---|
+| `Ctrl+O` | Open file |
+| `Ctrl+F` / `Esc` | Find / close find |
+| `Ctrl+T` | Cycle theme |
+| `Ctrl+P` | Print |
+| `Ctrl+R` / `F5` | Refresh |
+| `Ctrl+=` / `Ctrl+-` / `Ctrl+0` | Zoom in / out / reset |
+| `F11` | Fullscreen |
+| `Ctrl+Q` | Quit |
 
 ## Requirements
 
@@ -34,57 +69,28 @@ Split-pane editing with live preview, markdown syntax highlighting, a line-numbe
 pip install -r requirements.txt
 ```
 
-Or just run it — the script detects missing dependencies and offers to install them.
+Or just run either script — both detect missing dependencies and offer to install them. Add `--no-install` to exit instead of prompting.
 
-## Usage
+## Themes
 
-```
-python Markdown_Editor_Pro.py [file] [options]
-```
+Three themes, shared by both apps and selectable from the toolbar or `--theme`:
 
-| Option | Description |
+| Theme | Character |
 |---|---|
-| `file` | Optional markdown file to open on startup |
-| `--mode {editor,viewer}` | Override the built-in mode (default: `editor`) |
-| `--theme {obsidian,phosphor,daylight}` | Override the default theme |
-| `--no-install` | Exit instead of prompting to install missing dependencies |
+| `obsidian` (default) | Deep navy, teal accents, amber headings |
+| `phosphor` | Green-on-black terminal |
+| `daylight` | Light, for bright rooms |
 
-Examples:
+Themes are plain colour dictionaries in the `THEMES` mapping at the top of each script — add your own by copying an existing entry; it will appear in the theme selector automatically.
 
-```
-python Markdown_Editor_Pro.py README.md
-python Markdown_Editor_Pro.py notes.md --theme phosphor
-python Markdown_Editor_Pro.py docs/spec.md --mode viewer
-```
+## Printing
 
-## Keyboard shortcuts
-
-| Shortcut | Action |
-|---|---|
-| `Ctrl+O` | Open file |
-| `Ctrl+S` | Save |
-| `Ctrl+Shift+S` | Save As |
-| `Ctrl+R` | Reload file from disk |
-| `Ctrl+P` | Print preview pane |
-| `F5` | Refresh preview |
-| `Ctrl+=` / `Ctrl+-` | Editor font size up / down |
-
-## Configuration
-
-Defaults live at the top of the script:
-
-```python
-APP_MODE = "editor"            # "editor" | "viewer"
-DEFAULT_THEME = "obsidian"     # "obsidian" | "phosphor" | "daylight"
-LIVE_PREVIEW_DELAY_MS = 450
-```
-
-Themes are plain colour dictionaries in the `THEMES` mapping — add your own by copying an existing entry; it will appear in the theme selector automatically.
+Both apps print the rendered document through the standard system print dialog (`Ctrl+P`). Output always uses the light stylesheet regardless of the active theme, so dark themes don't print solid page backgrounds. Choose "Microsoft Print to PDF" in the dialog for PDF export.
 
 ## Notes
 
-- The preview uses `QTextBrowser`, which renders the standard markdown output (tables, fenced code, blockquotes, images) with a small footprint. For pixel-perfect HTML/CSS rendering, the pipeline is isolated enough that swapping in `PyQt6-WebEngine` is a small change.
-- Relative image paths in documents resolve against the file's directory in both the preview and printed output.
+- Rendering uses `QTextBrowser`, which handles the standard markdown output (tables, fenced code, blockquotes, images) with a small footprint. For pixel-perfect HTML/CSS rendering, the pipeline is isolated enough that swapping in `PyQt6-WebEngine` is a small change.
+- Relative image paths resolve against the document's directory in both the preview and printed output.
 - Fonts fall back gracefully: JetBrains Mono → Cascadia Code → Consolas.
 
 ## License
