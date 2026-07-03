@@ -9,6 +9,8 @@ Both share the same design language: a navy/teal/amber industrial theme (with ph
 
 ## Markdown Editor Pro
 
+<img width="1920" height="1040" alt="markdown_editor_pro" src="https://github.com/user-attachments/assets/30430b1a-4a31-4b97-9aa7-9d3a7bca7277" /><br>
+
 - **Live preview** — debounced re-render as you type (450 ms), with scroll position preserved
 - **Markdown syntax highlighting** — headings, bold/italic, inline and fenced code, links, blockquotes, list markers, horizontal rules
 - **Line-number gutter** — with current-line indicator and current-line background highlight
