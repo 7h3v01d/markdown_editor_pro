@@ -36,6 +36,8 @@ python Markdown_Editor_Pro.py [file] [--mode editor|viewer] [--theme obsidian|ph
 
 ## Markdown Viewer Pro
 
+<img width="1920" height="1040" alt="markdown_viewer_pro" src="https://github.com/user-attachments/assets/efc16b04-e9ea-41c4-8427-ef45fef9de68" /><br>
+
 - **Reader-focused** — no editing surface, just the rendered document with a structure panel
 - **Find** — live match count with highlighting; `Enter` cycles matches
 - **Zoom** — 60–180% document scaling from the toolbar or keyboard
